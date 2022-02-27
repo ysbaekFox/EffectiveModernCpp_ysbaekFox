@@ -1,0 +1,1 @@
+add_executable(exec Chapter_1_DeducingTypes/item_1.cpp)
