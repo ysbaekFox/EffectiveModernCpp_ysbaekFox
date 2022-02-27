@@ -3,7 +3,8 @@
 
 /*
 * Item 1: Understand template type dedution.
-* 
+* Case 1: ParamType is a Reference or Pointer,
+*         but not a Universal Reference.
 */
 
 template<typename T>
