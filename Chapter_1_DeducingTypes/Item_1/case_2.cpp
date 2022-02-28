@@ -7,7 +7,7 @@
 */
 
 template<typename T>
-void f(T&& param)
+void uniRef(T&& param)
 {
 	std::cout << "T type is " << Cpg_GetTypeName(T) << std::endl;
 }
@@ -29,10 +29,10 @@ int main()
 	const int cx = x;
 	const int& rx = x;
 
-	f(x);  // -> x is lvalue -> T is int&        -> ParamType is T&&&          -> so T&
-	f(cx); // -> x is lvalue -> T is const int&  -> ParamType is const int &&& -> so const int&
-	f(rx); // -> x is lavlue -> T is const int&  -> ParamType is const int &&& -> so const int&
-	f(10); // -> x is rvalue -> T is int         -> ParamType is int&&         -> so int&&
+	uniRef(x);  // -> x is lvalue -> T is int&        -> ParamType is T&&&          -> so T&
+	uniRef(cx); // -> x is lvalue -> T is const int&  -> ParamType is const int &&& -> so const int&
+	uniRef(rx); // -> x is lavlue -> T is const int&  -> ParamType is const int &&& -> so const int&
+	uniRef(10); // -> x is rvalue -> T is int         -> ParamType is int&&         -> so int&&
 	
 	return 0;
 }
