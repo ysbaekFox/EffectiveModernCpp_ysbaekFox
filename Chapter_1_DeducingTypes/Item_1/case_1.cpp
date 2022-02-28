@@ -1,5 +1,5 @@
 #include <iostream>
-#include <typechecker.h>
+#include <cpp_types.h>
 
 /*
 * Item 1: Understand template type dedution.
@@ -10,22 +10,20 @@
 template<typename T>
 void noRef_f(T param)
 {
-	std::cout << "T type is " << TypeName<T>::Get() << std::endl;
+	std::cout << "T type is " << Cpg_GetTypeName(T) << std::endl;
 }
 
 template<typename T>
 void ref_f(T& param)
 {
-	std::cout << "T type is " << TypeName<T>::Get() << std::endl;
+	std::cout << "T type is " << Cpg_GetTypeName(T) << std::endl;
 }
 
 template<typename T>
 void ptr_f(T* param)
 {
-	std::cout << "T type is " << TypeName<T>::Get() << std::endl;
+	std::cout << "T type is " << Cpg_GetTypeName(T) << std::endl;
 }
-
-using namespace ysbaek;
 
 int main()
 {
@@ -37,7 +35,7 @@ int main()
 	std::cout << "No Reference or Pointer" << std::endl;
 	std::cout << "-----------------------" << std::endl;
 	noRef_f(x);  // ParamType에 &나 *가 없을 경우
-	noRef_f(cx); // 전부 const나 &는 T에서 무시 됨.
+	noRef_f(cx); // const나 &는 T에서 전부 무시 됨.
 	noRef_f(rx);
 	std::cout << std::endl;
 	
