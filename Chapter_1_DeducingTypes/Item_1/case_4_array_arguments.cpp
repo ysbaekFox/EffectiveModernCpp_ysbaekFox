@@ -26,7 +26,7 @@ int main()
 {
 	// const char*와 const char[13]은 다르다.
 	// 왜냐하면 array-to-pointer에서 발생하는 decay rule 때문.
-	// decay : 배열에서 포인터로 변할 때, 배열의 크기 정보를 잃어버리는 것
+	// decay : 어떤 타입이 변할 때, 본래 타입의 정보를 잃어 버리는 것.
 
 	const char name[] = "ysbaek";
 	const char* ptrToName = name;
