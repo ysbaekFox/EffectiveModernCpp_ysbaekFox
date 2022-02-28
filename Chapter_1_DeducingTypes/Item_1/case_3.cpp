@@ -25,12 +25,12 @@ int main()
 	const int cx = x;
 	const int& rx = x;
 
-	value_f(x);
-	value_f(cx);
-	value_f(rx);
+	value_f(x);  // -> x is int       -> T is int -> ParamType is int
+	value_f(cx); // -> x is const int -> T is int -> ParamType is int
+	value_f(rx); // -> x is const in& -> T is int -> ParamType is int
 
 	// cosnt와 volatile은 value paramter일 때만 무시된다는 점이 중요하다.
-	// reference나 point로 paramter를 부를 때 type dedution 동안 const가 보장된다.
+	// case1, case2에서 reference나 point로 paramter를 부를 때 type dedution 동안 const가 보장된다.
 	// 하지만 value parameter에서 const point to const object를 value paramter로 넘길 때를 고려해야 한다.
 	// (const point to const object는 상수를 가리키는 상수 포인터를 의미함)
 
@@ -40,7 +40,7 @@ int main()
 	// 상수를 가리키는 상수 포인터 ex) const int* const ptr = &value;
 
 	const char* const ptr = "Fun with pointers";
-	value_f(ptr);
+	value_f(ptr); // -> x is const char* const -> T is const char* -> ParamType is const char*
 
 	return 0;
 }
