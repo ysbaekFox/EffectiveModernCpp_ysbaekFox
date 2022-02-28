@@ -1,6 +1,11 @@
 #include <iostream>
 #include <cpp_types.h>
 
+/*
+* Item 1: Understand template type dedution.
+* Array Arguments
+*/
+
 template<typename T>
 void val_f(T param)
 {

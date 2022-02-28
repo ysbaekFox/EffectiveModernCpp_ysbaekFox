@@ -14,11 +14,12 @@ void value_f(T param)
 
 int main()
 {
-	// 1. 이전처럼 argument가 reference일 경우, reference part를 무시한다.
-	// 2. 그런데 만약 arguement의 reference를 무시했는데, 그것이 const이면 const도 무시한다. 
+	// 1. 템플릿의 parameter가 value parameter이고
+	// 2. argument가 reference일 경우, reference part를 무시한다.
+	// 3. 그런데 만약 arguement의 reference를 무시했는데, 그것이 const이면 const도 무시한다. 
 
 	// volatile은 일반적이지 않습니다.
-	// volatile이면 volatile을 무시합니다. 
+	// value parameter일 때, volatile이면 volatile을 무시합니다. 
 	// (volatile은 device driver에서 일반적으로 사용되며 Item 40에서 자세하게 다룰 것 입니다.)
 
 	int x = 10;

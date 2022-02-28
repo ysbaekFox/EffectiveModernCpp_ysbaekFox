@@ -31,7 +31,7 @@ int main()
 
 	uniRef(x);  // -> x is lvalue -> T is int&        -> ParamType is T&&&          -> so T&
 	uniRef(cx); // -> x is lvalue -> T is const int&  -> ParamType is const int &&& -> so const int&
-	uniRef(rx); // -> x is lavlue -> T is const int&  -> ParamType is const int &&& -> so const int&
+	uniRef(rx); // -> x is lvalue -> T is const int&  -> ParamType is const int &&& -> so const int&
 	uniRef(10); // -> x is rvalue -> T is int         -> ParamType is int&&         -> so int&&
 	
 	return 0;
