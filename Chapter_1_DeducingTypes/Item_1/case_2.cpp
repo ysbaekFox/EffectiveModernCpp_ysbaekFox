@@ -2,7 +2,7 @@
 #include <cpp_types.h>
 
 /*
-* Item 1: Understand template type dedution.
+* Item 1: Understand template type deduction.
 * Case 1: ParamType is Universal Reference.
 */
 

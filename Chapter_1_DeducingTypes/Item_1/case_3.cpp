@@ -2,7 +2,7 @@
 #include <cpp_types.h>
 
 /*
-* Item 1: Understand template type dedution.
+* Item 1: Understand template type deduction.
 * Case 3: ParamType is Neither a Pointer nor a Reference.
 */
 
@@ -31,7 +31,7 @@ int main()
 	value_f(rx); // -> x is const in& -> T is int -> ParamType is int
 
 	// cosnt와 volatile은 value paramter일 때만 무시된다는 점이 중요하다.
-	// case1, case2에서 reference나 point로 paramter를 부를 때 type dedution 동안 const가 보장된다.
+	// case1, case2에서 reference나 point로 paramter를 부를 때 type deduction 동안 const가 보장된다.
 	// 하지만 value parameter에서 const point to const object를 value paramter로 넘길 때를 고려해야 한다.
 	// (const point to const object는 상수를 가리키는 상수 포인터를 의미함)
 
