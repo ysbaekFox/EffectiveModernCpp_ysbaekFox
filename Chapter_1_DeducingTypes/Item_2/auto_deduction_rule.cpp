@@ -56,7 +56,7 @@ int main()
 	*/
 
 	auto y = 10;         // Case 3
-	const auto cy = y;   // Case 3
+	const auto cy = y;   // Case 3 auto에 &가 붙지 않으면 참조성은 무시됩니다 !!!!! (매우 중요)
 	const auto& ry = y;  // Case 1
 
 	/*
