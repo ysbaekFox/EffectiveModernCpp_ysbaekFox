@@ -28,14 +28,14 @@ void ptr_f(T* param)
 int main()
 {
 	int x = 10;
-	const int cx = x; // &¸¦ ºÙÀÌÁö ¾ÊÀ¸¸é reference·Î µ¿ÀÛÇÏÁö ¾ÊÀ½.
+	const int cx = x;
 	const int& rx = x;
 
 	std::cout << "-----------------------" << std::endl;
 	std::cout << "No Reference or Pointer" << std::endl;
 	std::cout << "-----------------------" << std::endl;
-	noRef_f(x);  // ParamType¿¡ &³ª *°¡ ¾øÀ» °æ¿ì
-	noRef_f(cx); // const³ª &´Â T¿¡¼­ ÀüºÎ ¹«½Ã µÊ.
+	noRef_f(x);  // ParamTypeì— &ë‚˜ *ê°€ ì—†ì„ ê²½ìš°
+	noRef_f(cx); // constë‚˜ &ëŠ” Tì—ì„œ ì „ë¶€ ë¬´ì‹œ ë¨.
 	noRef_f(rx);
 	std::cout << std::endl;
 	
@@ -45,8 +45,8 @@ int main()
 	ref_f(x);   //  x is int        -> T is int       -> ParamType is int&
 	ref_f(cx);  // cx is const int  -> T is const int -> ParamType is const int&
 	ref_f(rx);  // rx is const int& -> T is const int -> ParamType is const int&
-				// const°¡ ºÙ¾úÀ» °æ¿ì const´Â À¯Áö µÇ°í, 
-				// &´Â ParamType¿¡ µû¶ó ÀÚ¿¬½º·´°Ô Ãß°¡µÇ°Å³ª Á¦°Å µÊ.
+				// constê°€ ë¶™ì—ˆì„ ê²½ìš° constëŠ” ìœ ì§€ ë˜ê³ , 
+				// &ëŠ” ParamTypeì— ë”°ë¼ ìì—°ìŠ¤ëŸ½ê²Œ ì¶”ê°€ë˜ê±°ë‚˜ ì œê±° ë¨.
 	std::cout << std::endl;
 
 	std::cout << "-----------------------" << std::endl;
