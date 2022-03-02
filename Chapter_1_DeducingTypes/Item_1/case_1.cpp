@@ -28,7 +28,7 @@ void ptr_f(T* param)
 int main()
 {
 	int x = 10;
-	const int cx = x;
+	const int cx = x; // &를 붙이지 않으면 reference로 동작하지 않음.
 	const int& rx = x;
 
 	std::cout << "-----------------------" << std::endl;
