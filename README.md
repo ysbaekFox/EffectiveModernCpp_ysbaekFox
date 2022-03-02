@@ -3,11 +3,11 @@ Effective Modern C++ (by Scott Meyers)
 - Explanation
 - Translate to Korean
 
-ÀÌÇØ°¡ °¡Áö ¾Ê´Â ºÎºĞ
-- Item3 Ã¹¹øÂ° ¹®´Ü.
+ì´í•´ê°€ ê°€ì§€ ì•ŠëŠ” ë¶€ë¶„
+- Item3 28p ì²«ë²ˆì§¸ ë¬¸ë‹¨. (ì „ì²´ ì´í•´ì—ëŠ” ì˜í–¥ì´ ì—†ëŠ” ê²ƒ ê°™ê¸´í•¨)
 
-Boost Library »ç¿ë¹ı
-- boost °ø½Ä È¨ÆäÀÌÁö¿¡¼­ ´Ù¿î·Îµå
-- "b2.exe -j8 -a --toolset=msvc-14.2 variant=debug,release link=static,shared threading=multi address-model=64"·Î build
-- THIRD_PARTY_LIB È¯°æ º¯¼ö¿¡ ¼³Ä¡ÇÑ BoostÀÇ Root °æ·Î ¼³Á¤
-- CMake ¼³Á¤Àº ÀÌ¹Ì µÇ¾îÀÖÀ¸¹Ç·Î ºôµå ¹× ½ÇÇà
+Boost Library ì‚¬ìš©ë²•
+- boost ê³µì‹ í™ˆí˜ì´ì§€ì—ì„œ ë‹¤ìš´ë¡œë“œ
+- "b2.exe -j8 -a --toolset=msvc-14.2 variant=debug,release link=static,shared threading=multi address-model=64"ë¡œ build
+- THIRD_PARTY_LIB í™˜ê²½ ë³€ìˆ˜ì— ì„¤ì¹˜í•œ Boostì˜ Root ê²½ë¡œ ì„¤ì •
+- CMake ì„¤ì •ì€ ì´ë¯¸ ë˜ì–´ìˆìœ¼ë¯€ë¡œ ë¹Œë“œ ë° ì‹¤í–‰
