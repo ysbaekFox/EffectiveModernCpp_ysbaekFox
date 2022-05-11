@@ -240,8 +240,25 @@ int main()
 		* 바로 std::vector 이기 때문이죠.
 		*/
 		
-		std::vector<int> v1(10, 20);	// { 20, 20, ... 20 } 10개
-		std::vector<int> v2{ 10, 20 };	// { 10, 20 } 2개		
+		std::vector<int> v1( 10, 20 );	// { 20, 20, ... 20 } 10개
+		std::vector<int> v2{ 10, 20 };	// { 10, 20 } 2개
+
+		/*
+		* parentheses, braces, constructor overloading resolution 규칙을 다시 봅시다.
+		* 이 discussion에서 2가지 중요한 takeaways(중요한 정보, 사실)이 있습니다.
+		* 첫번째는, (당신이 클래스 제작자로서), 만약 당신이 하나 이상의 std::initializer_list를 포함하는
+		* 생성자를 오버로드해야한다면, braced initializeation {}을 사용하는 client code가 오직 std::initilize_list에만
+		* overload 된다는 것을 인지해야한다는 것 입니다.
+		* 즉, 당신의 생성자를 디자인하는 가장 좋은 방법은 client가 parenthese () 또는 braces {}를 사용하든지 간에 오버로드에 영향이 없어야 한다는 것 입니다.
+		* 
+		* 둘째로는 class를 사용하는 client로서 당신이 parenthese ()와 braces {} 를 매우 조심스럽게 선택해야만 한다는 것 입니다.
+		* 대부분의 개발자는 
+		* 
+		*/
+	}
+
+	{
+
 	}
 
 	return 0;

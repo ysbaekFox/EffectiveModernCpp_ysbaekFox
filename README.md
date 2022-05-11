@@ -5,6 +5,7 @@ Effective Modern C++ (by Scott Meyers)
 
 이해가 가지 않는 부분
 - Item3 첫번째 문단.
+- Item7 'An implication~' 문단.
 
 Boost Library 사용법
 - boost 공식 홈페이지에서 다운로드
