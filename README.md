@@ -1,6 +1,6 @@
 Effective Modern C++ (by Scott Meyers)
 - Test Code
-- Explanation
+- Explaination
 - Translate to Korean
 
 이해가 가지 않는 부분
