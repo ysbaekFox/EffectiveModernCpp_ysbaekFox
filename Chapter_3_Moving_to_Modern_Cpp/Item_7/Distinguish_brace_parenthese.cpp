@@ -252,8 +252,22 @@ int main()
 		* 즉, 당신의 생성자를 디자인하는 가장 좋은 방법은 client가 parenthese () 또는 braces {}를 사용하든지 간에 오버로드에 영향이 없어야 한다는 것 입니다.
 		* 
 		* 둘째로는 class를 사용하는 client로서 당신이 parenthese ()와 braces {} 를 매우 조심스럽게 선택해야만 한다는 것 입니다.
-		* 대부분의 개발자는 
+		* 대부분의 개발자는 반드시 사용해야만 하는 경우일 때 말곤, ()혹은 {}중 하나를 고정해서 사용합니다.
 		* 
+		* braces를 default로 사용하는 사람들은 
+		* 그것의 비교할수 없이 폭넓은 applicability(이용가능성)
+		* braces의 narrowing conversion 금지
+		* C++ most vexing parse에 대한 면역성
+		* 에 매력을 느낍니다.
+		* 
+		* 그리고 parenthese를 default로 사용하는 사람들은
+		* 전통적인 C++98 문법 유지 
+		* auto-deduced-a-std::initializer_list 문제 회피
+		* 부주의로 인해 std::initializer_list 생성자에 의해, 객체 생성이 가로막히는 것에 대한 회피
+		* 에 매력을 느낍니다.
+		* 
+		* 둘 중 어느것이 다른 한쪽보다 더 낫다는 consensus는 없습니다.
+		* 그러니 둘 중 하나를 pick하고 그것을 지속적으로 적용하세요.
 		*/
 	}
 
