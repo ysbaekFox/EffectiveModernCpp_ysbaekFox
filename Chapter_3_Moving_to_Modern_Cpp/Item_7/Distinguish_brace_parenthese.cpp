@@ -148,6 +148,14 @@ EdgeCaseWidget::EdgeCaseWidget()
 EdgeCaseWidget::EdgeCaseWidget(std::initializer_list<int> il)
 {
 	std::cout << "Widget(std::initializer_list<int> il)" << std::endl;
+} 
+
+template<typename T, typename... Ts>
+void doSomeWork(Ts&&... params)
+{
+	// create local T object from params ...
+	T localObject1(std::forward<Ts>(params));
+	T localObject2{std::forward<Ts>(params)};
 }
 
 int main()
@@ -272,6 +280,36 @@ int main()
 	}
 
 	{
+		/*
+		* 만약 당신이 tempate 제작자라면,
+		* object 생성에 대한 braces와 parentheses 사이의 tension(강약조절?)이 유난히 불만족스러울 수 있습니다. 
+		* 왜냐하면, 일반적으로 무엇이 사용되어질지 아는 것이 불가능하기 때문 입니다.
+		* 
+		* 예를 들어, 당신이 임의 개수의 인자를 사용하여 임의의 Type을 생성한다고 가정해봅시다.
+		* 즉 아래와 같은 코드가 있다고 가정해봅시다.
+		* 		
+		*	template<typename T, typename... Ts>
+		*	void doSomeWork(Ts&&... params)
+		*	{
+		*		// create local T object from params ...
+		*		T localObject1(std::forward<Ts>(params));
+		*		T localObject2{ std::forward<Ts>(params) };
+		*	}
+		*/
+
+
+
+
+
+		doSomeWork<std::vector<int>>(10, 20);
+
+		/*
+		* 이것은 Standard Library 함수 std::make_unique와 std::make_shared가 직면한 문제입니다. (see Item 21)
+		* 이 함수들은 그 문제를 내부적으로 parentheses 를 사용하고 그러한 결정을 문서화하여 해결하였습니다.
+		* 
+		*/
+
+
 
 	}
 
