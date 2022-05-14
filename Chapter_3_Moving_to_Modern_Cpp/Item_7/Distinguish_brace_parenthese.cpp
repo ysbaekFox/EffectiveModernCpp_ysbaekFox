@@ -150,14 +150,22 @@ EdgeCaseWidget::EdgeCaseWidget(std::initializer_list<int> il)
 	std::cout << "Widget(std::initializer_list<int> il)" << std::endl;
 }
 
+template<typename T, typename... Ts>
+void doSomeWork(Ts&&... params)
+{
+	// create local T object from params ...
+	T localObject1(std::forward<Ts>(params));
+	T localObject2{ std::forward<Ts>(params) };
+}
+
 int main()
 {
 	{
 		Widget1 w1(0);
-		Widget2 w2_1();  // ÀÎ½ºÅÏ½º »ı¼ºÀ» ÀÇµµÇÏÁö¸¸ ÄÄÆÄÀÏ·¯´Â ±×°ÍÀ» ÇÔ¼ö ¼±¾ğÀ¸·Î Ã³¸®ÇÏ´Â
-						 // most vexing parse ¹®Á¦°¡ ¹ß»ıÇÒ ¼ö ÀÖÀ½
+		Widget2 w2_1();  // ì¸ìŠ¤í„´ìŠ¤ ìƒì„±ì„ ì˜ë„í•˜ì§€ë§Œ ì»´íŒŒì¼ëŸ¬ëŠ” ê·¸ê²ƒì„ í•¨ìˆ˜ ì„ ì–¸ìœ¼ë¡œ ì²˜ë¦¬í•˜ëŠ”
+						 // most vexing parse ë¬¸ì œê°€ ë°œìƒí•  ìˆ˜ ìˆìŒ
 						 // Visual Studio
-						 // C4930 : ÇÁ·ÎÅäÅ¸ÀÔ ÇÔ¼ö°¡ È£ÃâµÇÁö ¾Ê¾Ò½À´Ï´Ù. º¯¼ö Á¤ÀÇ·Î »ç¿ëÇÏ·Á°í ÇÑ °ÍÀº ¾Æ´ÑÁö È®ÀÎÇÏ½Ê½Ã¿À.
+						 // C4930 : í”„ë¡œí† íƒ€ì… í•¨ìˆ˜ê°€ í˜¸ì¶œë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ë³€ìˆ˜ ì •ì˜ë¡œ ì‚¬ìš©í•˜ë ¤ê³  í•œ ê²ƒì€ ì•„ë‹Œì§€ í™•ì¸í•˜ì‹­ì‹œì˜¤.
 		Widget2 w2_2{};
 	}
 
@@ -165,35 +173,35 @@ int main()
 	// Overload Resolution: https://en.cppreference.com/w/cpp/language/overload_resolution
 
 	{
-		Widget w1( 10, true );  // Widget(int i, bool b)
+		Widget w1(10, true);  // Widget(int i, bool b)
 		Widget w2{ 10, true };  // Widget(int i, bool b)
-		Widget w3( 10, 5.0 );	// Widget(int i, double b)
+		Widget w3(10, 5.0);	// Widget(int i, double b)
 		Widget w4{ 10, 5.0 };	// Widget(int i, double b)
 		std::cout << std::endl;
 		std::cout << std::endl;
 	}
 
 	{
-		StdInitWidget w1( 10, true);	// Widget(int i, bool b)
+		StdInitWidget w1(10, true);	// Widget(int i, bool b)
 		StdInitWidget w2{ 10, true };	// Widget(std::initializer_list<long double> il)
-										// (10, true´Â long double·Î convert µÊ)
+										// (10, trueëŠ” long doubleë¡œ convert ë¨)
 
-		StdInitWidget w3( 10, 5.0);		// Widget(int i, bool b)
+		StdInitWidget w3(10, 5.0);		// Widget(int i, bool b)
 		StdInitWidget w4{ 10, 5.0 };	// Widget(std::initializer_list<long double> il)
-										// (10, 5.0Àº long double·Î convert µÊ)
+										// (10, 5.0ì€ long doubleë¡œ convert ë¨)
 		std::cout << std::endl;
 		std::cout << std::endl;
 	}
 
 	{
 		/*
-		* MSCV ÄÄÆÄÀÏ·¯¿Í GNU 9.3.0 ÄÄÆÄÀÏ·¯ °á°ú°¡ ´Ù¸¨´Ï´Ù.
+		* MSCV ì»´íŒŒì¼ëŸ¬ì™€ GNU 9.3.0 ì»´íŒŒì¼ëŸ¬ ê²°ê³¼ê°€ ë‹¤ë¦…ë‹ˆë‹¤.
 		*/
 
 		FloatWidget w4{ 10, 5.0 };			// Widget(std::initializer_list<long double> il)
-		FloatWidget w5( w4 );				// call move ctor
+		FloatWidget w5(w4);				// call move ctor
 		FloatWidget w6{ w4 };				// Widget(std::initializer_list<long double> il)
-		FloatWidget w7( std::move(w4) );	// call move ctor
+		FloatWidget w7(std::move(w4));	// call move ctor
 		FloatWidget w8{ std::move(w4) };	// Widget(std::initializer_list<long double> il)
 
 		std::cout << std::endl;
@@ -202,28 +210,28 @@ int main()
 
 	{
 		/*
-		* braces { } ´Â std::initializer_list<bool>°ú ¸Å¿ì °­·ÂÇÏ°Ô ¿¬°á µÇ¾îÀÖ½À´Ï´Ù.
-		* ½ÉÁö¾î ¾Ë¸ÂÀº matchingÀÌ ¾Æ´Ï´õ¶óµµ ¿¬°áµÇ¾î ÄÄÆÄÀÏ ¿¡·¯°¡ ¹ß»ıÇÕ´Ï´Ù.
-		* ¿Ö³ÄÇÏ¸é std::initializer_list<bool>·Î ÀÎÇØ narrowing conversionÀÌ ¹ß»ıÇÏ°Ô µÉÅÙµ¥,
-		* C++ ±ÔÄ¢»ó, braces { } ¾È¿¡¼­´Â narrowing conversionÀÌ ±İÁöµÇ¾î ÀÖ±â ¶§¹®ÀÔ´Ï´Ù.
+		* braces { } ëŠ” std::initializer_list<bool>ê³¼ ë§¤ìš° ê°•ë ¥í•˜ê²Œ ì—°ê²° ë˜ì–´ìˆìŠµë‹ˆë‹¤.
+		* ì‹¬ì§€ì–´ ì•Œë§ì€ matchingì´ ì•„ë‹ˆë”ë¼ë„ ì—°ê²°ë˜ì–´ ì»´íŒŒì¼ ì—ëŸ¬ê°€ ë°œìƒí•©ë‹ˆë‹¤.
+		* ì™œëƒí•˜ë©´ std::initializer_list<bool>ë¡œ ì¸í•´ narrowing conversionì´ ë°œìƒí•˜ê²Œ ë í…ë°,
+		* C++ ê·œì¹™ìƒ, braces { } ì•ˆì—ì„œëŠ” narrowing conversionì´ ê¸ˆì§€ë˜ì–´ ìˆê¸° ë•Œë¬¸ì…ë‹ˆë‹¤.
 		*/
 
 		// BestMatchWidget w{ 10, 5.0 };
 
-		NoWayWidget w1( 10, true ); // Widget(int i, bool b)
+		NoWayWidget w1(10, true); // Widget(int i, bool b)
 		NoWayWidget w2{ 10, true }; // Widget(int i, bool b)
-		NoWayWidget w3( 10, 5.0 );  // Widget(int i, double b)
+		NoWayWidget w3(10, 5.0);  // Widget(int i, double b)
 		NoWayWidget w4{ 10, 5.0 };  // Widget(int i, double b)
-		
+
 		std::cout << std::endl;
 		std::cout << std::endl;
 	}
 
 	{
 		/*
-		* ´ëºÎºĞÀÇ case¸¦ ´Ù·ğÁö¸¸, Edge Case°¡ ÀÖ½À´Ï´Ù.
-		* default »ı¼ºÀÚ¿Í std::initializer_list¸¦ ÇÔ²² ¾²´Â °æ¿ì ÀÔ´Ï´Ù.
-		* ÀÌ·± °æ¿ì most vexing parse°¡ ¹ß»ıÇÒ ¼ö ÀÖ½À´Ï´Ù.
+		* ëŒ€ë¶€ë¶„ì˜ caseë¥¼ ë‹¤ë¤˜ì§€ë§Œ, Edge Caseê°€ ìˆìŠµë‹ˆë‹¤.
+		* default ìƒì„±ìì™€ std::initializer_listë¥¼ í•¨ê»˜ ì“°ëŠ” ê²½ìš° ì…ë‹ˆë‹¤.
+		* ì´ëŸ° ê²½ìš° most vexing parseê°€ ë°œìƒí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 		*/
 
 		EdgeCaseWidget w1;		// Widget()
@@ -235,44 +243,67 @@ int main()
 
 	{
 		/*
-		* Áö±İ±îÁö ¾Ë¾Æº» ÀÌ»óÇÑ ±ÔÄ¢µéÀÌ ¾ó¸¶³ª ½ÇÁ¦ ÄÚµù¿¡ ÀÖ¾î¼­ Áß¿äÇÑ Á¤º¸ÀÏ±î¿ä?
-		* ´ç½ÅÀÌ »ı°¢ÇÏ´Â °Íº¸´Ù ´õ Áß¿äÇÕ´Ï´Ù. ¿Ö³ÄÇÏ¸é ¿µÇâÀÌ °¡´Â Å¬·¡½ºµé Áß ÇÏ³ª°¡
-		* ¹Ù·Î std::vector ÀÌ±â ¶§¹®ÀÌÁÒ.
+		* ì§€ê¸ˆê¹Œì§€ ì•Œì•„ë³¸ ì´ìƒí•œ ê·œì¹™ë“¤ì´ ì–¼ë§ˆë‚˜ ì‹¤ì œ ì½”ë”©ì— ìˆì–´ì„œ ì¤‘ìš”í•œ ì •ë³´ì¼ê¹Œìš”?
+		* ë‹¹ì‹ ì´ ìƒê°í•˜ëŠ” ê²ƒë³´ë‹¤ ë” ì¤‘ìš”í•©ë‹ˆë‹¤. ì™œëƒí•˜ë©´ ì˜í–¥ì´ ê°€ëŠ” í´ë˜ìŠ¤ë“¤ ì¤‘ í•˜ë‚˜ê°€
+		* ë°”ë¡œ std::vector ì´ê¸° ë•Œë¬¸ì´ì£ .
 		*/
-		
-		std::vector<int> v1( 10, 20 );	// { 20, 20, ... 20 } 10°³
-		std::vector<int> v2{ 10, 20 };	// { 10, 20 } 2°³
+
+		std::vector<int> v1(10, 20);	// { 20, 20, ... 20 } 10ê°œ
+		std::vector<int> v2{10, 20};	// { 10, 20 } 2ê°œ
 
 		/*
-		* parentheses, braces, constructor overloading resolution ±ÔÄ¢À» ´Ù½Ã º¾½Ã´Ù.
-		* ÀÌ discussion¿¡¼­ 2°¡Áö Áß¿äÇÑ takeaways(Áß¿äÇÑ Á¤º¸, »ç½Ç)ÀÌ ÀÖ½À´Ï´Ù.
-		* Ã¹¹øÂ°´Â, (´ç½ÅÀÌ Å¬·¡½º Á¦ÀÛÀÚ·Î¼­), ¸¸¾à ´ç½ÅÀÌ ÇÏ³ª ÀÌ»óÀÇ std::initializer_list¸¦ Æ÷ÇÔÇÏ´Â
-		* »ı¼ºÀÚ¸¦ ¿À¹ö·ÎµåÇØ¾ßÇÑ´Ù¸é, braced initializeation {}À» »ç¿ëÇÏ´Â client code°¡ ¿ÀÁ÷ std::initilize_list¿¡¸¸
-		* overload µÈ´Ù´Â °ÍÀ» ÀÎÁöÇØ¾ßÇÑ´Ù´Â °Í ÀÔ´Ï´Ù.
-		* Áï, ´ç½ÅÀÇ »ı¼ºÀÚ¸¦ µğÀÚÀÎÇÏ´Â °¡Àå ÁÁÀº ¹æ¹ıÀº client°¡ parenthese () ¶Ç´Â braces {}¸¦ »ç¿ëÇÏµçÁö °£¿¡ ¿À¹ö·Îµå¿¡ ¿µÇâÀÌ ¾ø¾î¾ß ÇÑ´Ù´Â °Í ÀÔ´Ï´Ù.
-		* 
-		* µÑÂ°·Î´Â class¸¦ »ç¿ëÇÏ´Â client·Î¼­ ´ç½ÅÀÌ parenthese ()¿Í braces {} ¸¦ ¸Å¿ì Á¶½É½º·´°Ô ¼±ÅÃÇØ¾ß¸¸ ÇÑ´Ù´Â °Í ÀÔ´Ï´Ù.
-		* ´ëºÎºĞÀÇ °³¹ßÀÚ´Â ¹İµå½Ã »ç¿ëÇØ¾ß¸¸ ÇÏ´Â °æ¿ìÀÏ ¶§ ¸»°ï, ()È¤Àº {}Áß ÇÏ³ª¸¦ °íÁ¤ÇØ¼­ »ç¿ëÇÕ´Ï´Ù.
-		* 
-		* braces¸¦ default·Î »ç¿ëÇÏ´Â »ç¶÷µéÀº 
-		* ±×°ÍÀÇ ºñ±³ÇÒ¼ö ¾øÀÌ Æø³ĞÀº applicability(ÀÌ¿ë°¡´É¼º)
-		* bracesÀÇ narrowing conversion ±İÁö
-		* C++ most vexing parse¿¡ ´ëÇÑ ¸é¿ª¼º
-		* ¿¡ ¸Å·ÂÀ» ´À³§´Ï´Ù.
-		* 
-		* ±×¸®°í parenthese¸¦ default·Î »ç¿ëÇÏ´Â »ç¶÷µéÀº
-		* ÀüÅëÀûÀÎ C++98 ¹®¹ı À¯Áö 
-		* auto-deduced-a-std::initializer_list ¹®Á¦ È¸ÇÇ
-		* ºÎÁÖÀÇ·Î ÀÎÇØ std::initializer_list »ı¼ºÀÚ¿¡ ÀÇÇØ, °´Ã¼ »ı¼ºÀÌ °¡·Î¸·È÷´Â °Í¿¡ ´ëÇÑ È¸ÇÇ
-		* ¿¡ ¸Å·ÂÀ» ´À³§´Ï´Ù.
-		* 
-		* µÑ Áß ¾î´À°ÍÀÌ ´Ù¸¥ ÇÑÂÊº¸´Ù ´õ ³´´Ù´Â consensus´Â ¾ø½À´Ï´Ù.
-		* ±×·¯´Ï µÑ Áß ÇÏ³ª¸¦ pickÇÏ°í ±×°ÍÀ» Áö¼ÓÀûÀ¸·Î Àû¿ëÇÏ¼¼¿ä.
+		* parentheses, braces, constructor overloading resolution ê·œì¹™ì„ ë‹¤ì‹œ ë´…ì‹œë‹¤.
+		* ì´ discussionì—ì„œ 2ê°€ì§€ ì¤‘ìš”í•œ takeaways(ì¤‘ìš”í•œ ì •ë³´, ì‚¬ì‹¤)ì´ ìˆìŠµë‹ˆë‹¤.
+		* ì²«ë²ˆì§¸ëŠ”, (ë‹¹ì‹ ì´ í´ë˜ìŠ¤ ì œì‘ìë¡œì„œ), ë§Œì•½ ë‹¹ì‹ ì´ í•˜ë‚˜ ì´ìƒì˜ std::initializer_listë¥¼ í¬í•¨í•˜ëŠ”
+		* ìƒì„±ìë¥¼ ì˜¤ë²„ë¡œë“œí•´ì•¼í•œë‹¤ë©´, braced initializeation {}ì„ ì‚¬ìš©í•˜ëŠ” client codeê°€ ì˜¤ì§ std::initilize_listì—ë§Œ
+		* overload ëœë‹¤ëŠ” ê²ƒì„ ì¸ì§€í•´ì•¼í•œë‹¤ëŠ” ê²ƒ ì…ë‹ˆë‹¤.
+		* ì¦‰, ë‹¹ì‹ ì˜ ìƒì„±ìë¥¼ ë””ìì¸í•˜ëŠ” ê°€ì¥ ì¢‹ì€ ë°©ë²•ì€ clientê°€ parenthese () ë˜ëŠ” braces {}ë¥¼ ì‚¬ìš©í•˜ë“ ì§€ ê°„ì— ì˜¤ë²„ë¡œë“œì— ì˜í–¥ì´ ì—†ì–´ì•¼ í•œë‹¤ëŠ” ê²ƒ ì…ë‹ˆë‹¤.
+		*
+		* ë‘˜ì§¸ë¡œëŠ” classë¥¼ ì‚¬ìš©í•˜ëŠ” clientë¡œì„œ ë‹¹ì‹ ì´ parenthese ()ì™€ braces {} ë¥¼ ë§¤ìš° ì¡°ì‹¬ìŠ¤ëŸ½ê²Œ ì„ íƒí•´ì•¼ë§Œ í•œë‹¤ëŠ” ê²ƒ ì…ë‹ˆë‹¤.
+		* ëŒ€ë¶€ë¶„ì˜ ê°œë°œìëŠ” ë°˜ë“œì‹œ ì‚¬ìš©í•´ì•¼ë§Œ í•˜ëŠ” ê²½ìš°ì¼ ë•Œ ë§ê³¤, ()í˜¹ì€ {}ì¤‘ í•˜ë‚˜ë¥¼ ê³ ì •í•´ì„œ ì‚¬ìš©í•©ë‹ˆë‹¤.
+		*
+		* bracesë¥¼ defaultë¡œ ì‚¬ìš©í•˜ëŠ” ì‚¬ëŒë“¤ì€
+		* ê·¸ê²ƒì˜ ë¹„êµí• ìˆ˜ ì—†ì´ í­ë„“ì€ applicability(ì´ìš©ê°€ëŠ¥ì„±)
+		* bracesì˜ narrowing conversion ê¸ˆì§€
+		* C++ most vexing parseì— ëŒ€í•œ ë©´ì—­ì„±
+		* ì— ë§¤ë ¥ì„ ëŠë‚ë‹ˆë‹¤.
+		*
+		* ê·¸ë¦¬ê³  parentheseë¥¼ defaultë¡œ ì‚¬ìš©í•˜ëŠ” ì‚¬ëŒë“¤ì€
+		* ì „í†µì ì¸ C++98 ë¬¸ë²• ìœ ì§€
+		* auto-deduced-a-std::initializer_list ë¬¸ì œ íšŒí”¼
+		* ë¶€ì£¼ì˜ë¡œ ì¸í•´ std::initializer_list ìƒì„±ìì— ì˜í•´, ê°ì²´ ìƒì„±ì´ ê°€ë¡œë§‰íˆëŠ” ê²ƒì— ëŒ€í•œ íšŒí”¼
+		* ì— ë§¤ë ¥ì„ ëŠë‚ë‹ˆë‹¤.
+		*
+		* ë‘˜ ì¤‘ ì–´ëŠê²ƒì´ ë‹¤ë¥¸ í•œìª½ë³´ë‹¤ ë” ë‚«ë‹¤ëŠ” consensusëŠ” ì—†ìŠµë‹ˆë‹¤.
+		* ê·¸ëŸ¬ë‹ˆ ë‘˜ ì¤‘ í•˜ë‚˜ë¥¼ pickí•˜ê³  ê·¸ê²ƒì„ ì§€ì†ì ìœ¼ë¡œ ì ìš©í•˜ì„¸ìš”.
 		*/
 	}
 
 	{
+		/*
+		* ë§Œì•½ ë‹¹ì‹ ì´ tempate ì œì‘ìë¼ë©´,
+		* object ìƒì„±ì— ëŒ€í•œ bracesì™€ parentheses ì‚¬ì´ì˜ tension(ê°•ì•½ì¡°ì ˆ?)ì´ ìœ ë‚œíˆ ë¶ˆë§Œì¡±ìŠ¤ëŸ¬ìš¸ ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+		* ì™œëƒí•˜ë©´, ì¼ë°˜ì ìœ¼ë¡œ ë¬´ì—‡ì´ ì‚¬ìš©ë˜ì–´ì§ˆì§€ ì•„ëŠ” ê²ƒì´ ë¶ˆê°€ëŠ¥í•˜ê¸° ë•Œë¬¸ ì…ë‹ˆë‹¤.
+		*
+		* ì˜ˆë¥¼ ë“¤ì–´, ë‹¹ì‹ ì´ ì„ì˜ ê°œìˆ˜ì˜ ì¸ìë¥¼ ì‚¬ìš©í•˜ì—¬ ì„ì˜ì˜ Typeì„ ìƒì„±í•œë‹¤ê³  ê°€ì •í•´ë´…ì‹œë‹¤.
+		* ì¦‰ ì•„ë˜ì™€ ê°™ì€ ì½”ë“œê°€ ìˆë‹¤ê³  ê°€ì •í•´ë´…ì‹œë‹¤.
+		*
+		*	template<typename T, typename... Ts>
+		*	void doSomeWork(Ts&&... params)
+		*	{
+		*		// create local T object from params ...
+		*		T localObject1(std::forward<Ts>(params));
+		*		T localObject2{ std::forward<Ts>(params) };
+		*	}
+		*/
 
+		doSomeWork<std::vector<int>>(10, 20);
+
+		/*
+		* ì´ê²ƒì€ Standard Library í•¨ìˆ˜ std::make_uniqueì™€ std::make_sharedê°€ ì§ë©´í•œ ë¬¸ì œì…ë‹ˆë‹¤. (see Item 21)
+		* ì´ í•¨ìˆ˜ë“¤ì€ ê·¸ ë¬¸ì œë¥¼ ë‚´ë¶€ì ìœ¼ë¡œ parentheses ë¥¼ ì‚¬ìš©í•˜ê³  ê·¸ëŸ¬í•œ ê²°ì •ì„ ë¬¸ì„œí™”í•˜ì—¬ í•´ê²°í•˜ì˜€ìŠµë‹ˆë‹¤.
+		*
+		*/
 	}
 
 	return 0;
