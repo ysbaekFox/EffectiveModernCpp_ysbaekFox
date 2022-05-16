@@ -292,9 +292,11 @@ int main()
 		*	void doSomeWork(Ts&&... params)
 		*	{
 		*		// create local T object from params ...
-		*		T localObject1(std::forward<Ts>(params));
-		*		T localObject2{ std::forward<Ts>(params) };
+		*		T localObject1(std::forward<Ts>(params));    // 1
+		*		T localObject2{ std::forward<Ts>(params) };  // 2
 		*	}
+		* 
+		* 어떤 코드가 호출되냐에 따라 param을 적절하게 잘 넣어주어야만 할 것 입니다. (매우 번거롭고 의도와 다르게 동작할 수 있습니다.)
 		*/
 
 		doSomeWork<std::vector<int>>(10, 20);
