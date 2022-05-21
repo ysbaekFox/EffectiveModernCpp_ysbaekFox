@@ -32,6 +32,7 @@ link_directories(${BOOST_LIBRARY_DIR})
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_10/prefer_scoped_enums.cpp")
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_11/prefer_deleted_functions.cpp")
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_12/declare_override.cpp")
-add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_13/prefer_const_iterator.cpp")
+#add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_13/prefer_const_iterator.cpp")
+add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_14/noexcept.cpp")
 
 target_link_libraries(exec ${BOOST_LIBRARIES})
