@@ -6,6 +6,7 @@ Effective Modern C++ (by Scott Meyers)
 이해가 가지 않는 부분
 - Item3 28p 첫번째 문단. (전체 이해에는 영향 없음)
 - Item7 'An implication~' 문단 (전체 이해에는 영향 없음)
+- Item12 비멤버 cbegin 관련 설명 (그냥 넘어가도 될 듯)
 
 Boost Library 사용법
 - boost 공식 홈페이지에서 다운로드
