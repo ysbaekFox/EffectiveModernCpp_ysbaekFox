@@ -30,6 +30,7 @@ link_directories(${BOOST_LIBRARY_DIR})
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_8/prefer_nullptr_to_0.cpp")
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_9/prefer_alias_to_typedefs.cpp")
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_10/prefer_scoped_enums.cpp")
-add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_11/prefer_deleted_functions.cpp")
+#add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_11/prefer_deleted_functions.cpp")
+add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_12/declare_override.cpp")
 
 target_link_libraries(exec ${BOOST_LIBRARIES})
