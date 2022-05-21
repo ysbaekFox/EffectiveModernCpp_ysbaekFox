@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.0)
 
 include_directories ( Common )
 
+#set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_VERBOSE_MAKEFILE)
 
@@ -28,6 +29,7 @@ link_directories(${BOOST_LIBRARY_DIR})
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_7/most_vexing_parse.cpp")
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_8/prefer_nullptr_to_0.cpp")
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_9/prefer_alias_to_typedefs.cpp")
-add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_10/prefer_scoped_enums.cpp")
+#add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_10/prefer_scoped_enums.cpp")
+add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_11/prefer_deleted_functions.cpp")
 
 target_link_libraries(exec ${BOOST_LIBRARIES})
