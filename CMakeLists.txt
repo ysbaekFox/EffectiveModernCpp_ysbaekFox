@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 3.0)
 
 include_directories ( Common )
 
-set(CMAKE_CXX_STANDARD 11)
-#set(CMAKE_CXX_STANDARD 17)
+#set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_VERBOSE_MAKEFILE)
 
 set(BOOST_ROOT "$ENV{THIRD_PARTY_LIB}/boost_1_72_0")
