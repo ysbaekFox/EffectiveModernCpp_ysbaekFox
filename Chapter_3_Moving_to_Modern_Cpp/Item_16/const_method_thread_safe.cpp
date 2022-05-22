@@ -1,8 +1,7 @@
 #include <iostream>
 
-class Polymial
-
 int main()
 {
+    std::cout << "챕터 생략" << std::endl;
     return 0;
 }
