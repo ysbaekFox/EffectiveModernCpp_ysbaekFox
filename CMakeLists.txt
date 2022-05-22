@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 3.0)
 
 include_directories ( Common )
 
-set(CMAKE_CXX_STANDARD 11)
-#set(CMAKE_CXX_STANDARD 17)
+#set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_VERBOSE_MAKEFILE)
 
 set(BOOST_ROOT "$ENV{THIRD_PARTY_LIB}/boost_1_72_0")
@@ -34,6 +34,8 @@ link_directories(${BOOST_LIBRARY_DIR})
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_12/declare_override.cpp")
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_13/prefer_const_iterator.cpp")
 #add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_14/noexcept.cpp")
-add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_15/use_constexpr.cpp")
+#add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_15/use_constexpr.cpp")
+#add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_16/const_method_thread_safe.cpp")
+add_executable(exec "Chapter_3_Moving_to_Modern_Cpp/Item_17/special_member_function.cpp")
 
 target_link_libraries(exec ${BOOST_LIBRARIES})
