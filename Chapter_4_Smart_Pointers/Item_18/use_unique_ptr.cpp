@@ -65,6 +65,15 @@ int main()
     std::cout << "unique_ptr(using deleter class which has no data) size : " << sizeof(deleterClass1) << std::endl;
     std::cout << "unique_ptr(using deleter class which has data) size : " << sizeof(deleterClass2) << std::endl;
 
+    // MSVC
+	// lambda function size : 1
+	// unique_ptr(default) size : 8
+	// unique_ptr(using function) size : 16
+	// unique_ptr(using lambda deleter) size : 8
+	// unique_ptr(using deleter class which has no data) size : 8
+	// unique_ptr(using deleter class which has data) size : 16
+	// Lambda를 사용한 custom deleter는 type의 일부이기 때문에 size 증가하지 않음.
+
     // pointer와 같은 배열 모호성이 없습니다.
     std::unique_ptr<int> singleUniquePtr;
     std::unique_ptr<int[]> arrayUniquePtr;
